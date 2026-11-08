@@ -55,17 +55,19 @@
     .badge-2gis img { display: block; width: 100%; height: 100%; object-fit: contain; }
     .rating-panel { position: relative; z-index: 2; width: min(100%, 310px); margin: 15px auto 12px; padding: 12px 16px 10px; border: 1px solid rgba(255,255,255,.35); border-radius: 18px; background: rgba(35,12,8,.24); box-shadow: 0 8px 22px rgba(0,0,0,.16); }
     .rating-label { color: #fff; font-size: 12px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 7px; }
-    .stars-row { display: flex; justify-content: center; gap: 10px; margin: 0 auto 5px; position: relative; z-index: 2; }
-    .star-btn { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.38); border-radius: 12px; cursor: pointer; padding: 5px; transition: transform .15s ease, background .2s ease, border-color .2s ease; }
-    .star-btn:active { transform: scale(1.12); }
-    .star-icon { width: 29px; height: 29px; fill: rgba(255,255,255,.58); filter: drop-shadow(0 2px 4px rgba(0,0,0,.25)); transition: fill .2s ease; }
-    .star-btn.active { background: rgba(245,223,46,.18); border-color: var(--gold); }
-    .star-btn.active .star-icon { fill: var(--gold); }
+    .stars-row { display: flex; justify-content: center; align-items: center; gap: 13px; margin: 4px auto 7px; position: relative; z-index: 2; }
+    .star-btn { appearance: none; background: transparent; border: 0; border-radius: 0; cursor: pointer; padding: 2px; line-height: 0; transition: transform .18s ease; }
+    .star-btn:active { transform: scale(1.2); }
+    .star-icon { width: 34px; height: 34px; fill: rgba(255,255,255,.42); filter: drop-shadow(0 2px 5px rgba(0,0,0,.3)); transition: fill .2s ease, filter .2s ease; }
+    .star-btn.active .star-icon { fill: var(--gold); filter: drop-shadow(0 0 7px rgba(245,223,46,.7)); }
+    .stars-row .star-btn { animation: starBlink 1.8s ease-in-out infinite; }
+    .stars-row .star-btn:nth-child(2) { animation-delay: .18s; }
+    .stars-row .star-btn:nth-child(3) { animation-delay: .36s; }
+    .stars-row .star-btn:nth-child(4) { animation-delay: .54s; }
+    .stars-row .star-btn:nth-child(5) { animation-delay: .72s; }
+    @keyframes starBlink { 0%,100% { opacity: .72; transform: scale(.96); } 50% { opacity: 1; transform: scale(1.08); } }
     .rating-feedback { color: rgba(255,255,255,.9); font-size: 11px; font-weight: 600; min-height: 16px; }
-    .rating-nudge { position: relative; z-index: 2; display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin: 2px auto 0; padding: 10px 17px; border: 1px solid rgba(255,255,255,.75); border-radius: 999px; color: #25110c; background: linear-gradient(135deg,#FFE66B,#F5DF2E); font-size: 12px; font-weight: 800; letter-spacing: .35px; box-shadow: 0 5px 18px rgba(0,0,0,.22); cursor: pointer; animation: ratingPulse 2.4s ease-in-out infinite; }
-    .rating-nudge:active { transform: scale(.97); }
-    @keyframes ratingPulse { 0%,100% { box-shadow: 0 5px 18px rgba(0,0,0,.22), 0 0 0 0 rgba(245,223,46,.25); } 50% { box-shadow: 0 5px 18px rgba(0,0,0,.22), 0 0 0 7px rgba(245,223,46,0); } }
-    @media (prefers-reduced-motion: reduce) { .rating-nudge { animation: none; } }
+    @media (prefers-reduced-motion: reduce) { .stars-row .star-btn { animation: none; } }
     .hero-title { font-size: 21px; font-weight: 700; line-height: 1.25; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.25); position: relative; z-index: 2; margin-bottom: 6px; }
     .hero-sub { font-size: 12.5px; color: rgba(255,255,255,.88); font-weight: 500; position: relative; z-index: 2; }
     .wave-divider { position: absolute; bottom: -1px; left: 0; width: 100%; height: 46px; z-index: 2; }
@@ -139,9 +141,8 @@
       <div class="badge-2gis" aria-hidden="true"><img src="./37A87A5C-5C8D-4464-B46E-E9C373D28B71.png" alt="Оригинальный логотип 2ГИС"></div>
       <h1 class="hero-title">Как вам у нас?</h1>
       <p class="hero-sub">Оцените посещение и поделитесь своими впечатлениями</p>
-      <button type="button" class="rating-nudge" id="ratingNudge">⭐ ОСТАВИТЬ ОЦЕНКУ <span aria-hidden="true">↓</span></button>
       <div class="rating-panel" id="ratingPanel">
-        <div class="rating-label">Ваша оценка от 1 до 5</div>
+        <div class="rating-label">Выберите оценку</div>
         <div class="stars-row" id="starsRow" role="group" aria-label="Выберите оценку от 1 до 5">
           <button type="button" class="star-btn" data-rate="1" aria-label="1 звезда" aria-pressed="false"><svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg></button>
           <button type="button" class="star-btn" data-rate="2" aria-label="2 звезды" aria-pressed="false"><svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg></button>
@@ -236,13 +237,8 @@
     const copyAndGoBtn = document.getElementById("copyAndGoBtn");
     const toastMsg = document.getElementById("toastMsg");
     const ratingFeedback = document.getElementById("ratingFeedback");
-    const ratingNudge = document.getElementById("ratingNudge");
     const ratingPanel = document.getElementById("ratingPanel");
 
-    ratingNudge.addEventListener("click", () => {
-      ratingPanel.scrollIntoView({ behavior: "smooth", block: "center" });
-      starBtns[0].focus({ preventScroll: true });
-    });
 
     function buildReview() {
       const selectedTags = Array.from(chips)
