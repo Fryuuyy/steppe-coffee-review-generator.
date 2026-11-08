@@ -54,9 +54,8 @@
     }
     .badge-2gis img { display: block; width: 100%; height: 100%; object-fit: contain; }
     .rating-panel { position: relative; isolation: isolate; z-index: 2; width: min(100%, 310px); margin: 15px auto 12px; padding: 12px 16px 10px; border: 1px solid rgba(255,255,255,.35); border-radius: 18px; background: rgba(35,12,8,.24); box-shadow: 0 8px 22px rgba(0,0,0,.16); }
-    .rating-panel::before { content: ""; position: absolute; inset: -2px; z-index: -1; padding: 2px; border-radius: inherit; background: conic-gradient(from 0deg, transparent 0deg 235deg, rgba(245,223,46,.18) 250deg, #F5DF2E 278deg, #FFFFFF 292deg, #F5DF2E 306deg, rgba(158,56,36,.85) 322deg, transparent 345deg 360deg); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; animation: borderShuttle 3.2s ease-in-out infinite alternate; }
-    @keyframes borderShuttle { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @media (prefers-reduced-motion: reduce) { .rating-panel::before { animation: none; } }
+    .rating-panel::before { content: none; }
+
     .rating-label { color: #fff; font-size: 12px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 7px; }
     .stars-row { display: flex; justify-content: center; align-items: center; gap: 13px; margin: 4px auto 7px; position: relative; z-index: 2; }
     .star-btn { appearance: none; background: transparent; border: 0; border-radius: 0; cursor: pointer; padding: 2px; line-height: 0; transition: transform .18s ease; }
