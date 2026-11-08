@@ -342,29 +342,11 @@
         : "Не удалось скопировать текст. Открываем выбранный филиал в 2ГИС...";
       toastMsg.classList.add("show");
 
-      let fallbackTimer;
-      const cancelFallback = () => {
-        if (fallbackTimer) {
-          window.clearTimeout(fallbackTimer);
-          fallbackTimer = null;
-        }
-      };
-      const onAppOpened = () => {
-        if (document.visibilityState === "hidden") cancelFallback();
-      };
-      document.addEventListener("visibilitychange", onAppOpened);
-      window.addEventListener("pagehide", cancelFallback, { once: true });
-
-      // Открываем карточку того филиала, который выбран на странице.
-      window.location.href = selectedBranchLink.app;
-
-      // Если приложение не перехватило ссылку, используем веб-карточку этого же филиала.
-      fallbackTimer = window.setTimeout(() => {
-        if (document.visibilityState === "visible") {
-          document.removeEventListener("visibilitychange", onAppOpened);
-          window.location.href = selectedBranchLink.web;
-        }
-      }, 1800);
+      // Короткая универсальная ссылка 2ГИС сама откроет приложение,
+      // если оно установлено и iOS передаст ссылку приложению.
+      // Если приложение не установлено или переход недоступен, 2ГИС
+      // автоматически покажет веб-версию той же карточки.
+      window.location.assign(selectedBranchLink.app);
 
       window.setTimeout(() => toastMsg.classList.remove("show"), 3200);
     });
