@@ -1,70 +1,325 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#9f382d">
-<meta name="description" content="Генератор черновиков отзывов STEPPE COFFEE на основе реальных впечатлений.">
-<title>STEPPE COFFEE — генератор отзывов</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{--red:#9f382d;--dark:#76291f;--cream:#f8f5ef;--paper:#fffefa;--ink:#292622;--muted:#827c73;--line:#e9e3d9;--gold:#d99a42;--green:#4e765b;font-family:"DM Sans",sans-serif;color:var(--ink);background:var(--cream)}
-*{box-sizing:border-box}body{margin:0;min-width:320px}button,textarea{font:inherit}button{cursor:pointer}.shell{max-width:1180px;margin:auto;padding:0 42px}
-header{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e8e0d6}.brand{display:flex;align-items:center;gap:10px;color:var(--red);text-decoration:none}.mark{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:var(--red);color:white;font:800 24px Manrope}.brandname{font:800 24px Manrope;letter-spacing:-1.5px}.brandname span{color:var(--gold)}.toplabel,.eyebrow,.step,.live,.foot{font-size:10px;letter-spacing:1.5px;font-weight:700}.toplabel{color:#948b80}
-.hero{position:relative;padding:76px 0 68px}.eyebrow{color:var(--red)}.eyebrow:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-right:9px}.hero h1{font:800 clamp(42px,6.4vw,76px)/1.05 Manrope;letter-spacing:-4px;margin:22px 0 15px}.hero h1 em{font-style:normal;color:var(--red)}.intro{max-width:490px;color:#777066;line-height:1.75;font-size:15px;margin:0}.stamp{position:absolute;right:10%;top:55px;width:145px;height:145px;border-radius:50%;background:var(--red);color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(11deg);font-size:16px;font-weight:800;line-height:1.08;letter-spacing:2px;box-shadow:0 14px 35px #9f382d2b}.stamp small{font-size:8px;color:#f3c9a0;margin-top:7px}
-.workspace{display:grid;grid-template-columns:1.04fr .96fr;gap:20px;align-items:stretch}.panel{border:1px solid var(--line);border-radius:18px;background:var(--paper)}.form{padding:31px 34px 28px}.heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}.step{color:#a39a8d;font-size:9px}.heading h2{font:700 23px Manrope;letter-spacing:-.8px;margin:8px 0 0}.spark{color:var(--gold);font-size:28px}
-fieldset{border:0;padding:0;margin:0 0 25px;min-width:0}legend,.fieldlabel{display:block;font-size:12px;font-weight:700;margin-bottom:12px;color:#49443d}.stars{display:flex;gap:7px}.star{border:0;padding:0;background:none;color:#ddd6cb;font-size:31px;line-height:1}.star.on{color:var(--gold)}.hint{font-size:10px;color:var(--muted);margin:7px 0 0}
-.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex}.chip input,.tone input{position:absolute;opacity:0;pointer-events:none}.chip span{display:inline-flex;min-height:36px;align-items:center;border:1px solid var(--line);border-radius:30px;padding:0 13px;color:#6d665d;font-size:11px;cursor:pointer}.chip input:checked+span{border-color:var(--red);background:#f5e8e3;color:var(--dark);font-weight:700}
-.tones{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.tone span{min-height:61px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;border:1px solid var(--line);border-radius:10px;font-size:10px;color:#716a60;cursor:pointer}.tone b{font-size:17px}.tone input:checked+span{border-color:var(--red);background:#fbf2ed;color:var(--dark)}
-textarea{width:100%;resize:vertical;border:1px solid var(--line);border-radius:10px;background:#fffefa;padding:12px 13px;outline:none;color:var(--ink);font-size:12px;line-height:1.5}textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px #9f382d12}textarea::placeholder{color:#b3aca2}.meta{display:flex;justify-content:space-between;margin-top:6px;color:#a49c91;font-size:9px}
-.generate{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;border-radius:9px;background:var(--red);color:white;padding:16px 18px;font-size:10px;letter-spacing:1.4px;font-weight:800}.generate:hover{background:var(--dark)}.arrow{font-size:19px}.privacy{color:#a29a8f;font-size:9px;line-height:1.55;margin:11px 0 0}
-.result{padding:31px 30px 23px;background:#f1ece3;display:flex;flex-direction:column;min-height:670px}.resulttop{display:flex;align-items:center;justify-content:space-between}.live{color:var(--green);font-size:8px}.live:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#6b9a72;margin-right:6px}.empty{margin:auto 0;text-align:center;padding:35px 15px}.illustration{width:66px;height:66px;display:grid;place-items:center;margin:0 auto 20px;background:#e7d8c7;color:var(--red);border-radius:50%;font-size:32px}.empty h2{font:700 25px/1.2 Manrope;letter-spacing:-1px;margin:0 0 10px}.empty p{max-width:240px;margin:auto;color:#8b8378;font-size:12px;line-height:1.65}
-.cards{display:flex;flex-direction:column;gap:12px;margin:24px 0}.card{background:#fffefa;border:1px solid #e6ded2;border-radius:12px;padding:16px;animation:rise .3s ease both}.cardhead{display:flex;justify-content:space-between;margin-bottom:10px}.num{color:#a49a8e;font-size:9px;letter-spacing:1px;font-weight:700}.cardstars{color:var(--gold);font-size:12px;letter-spacing:1px}.reviewtext{color:#4b453d;font-size:12px;line-height:1.7;margin:0 0 14px}.copy{border:1px solid #e7d9cc;background:white;color:var(--red);border-radius:7px;padding:8px 11px;font-size:9px;font-weight:800;letter-spacing:.7px}.copy:hover{background:#f5e8e3}.review-link{display:inline-flex;align-items:center;justify-content:center;margin-top:8px;width:100%;padding:10px 12px;border-radius:7px;background:var(--red);color:#fff;text-decoration:none;font-size:9px;font-weight:800;letter-spacing:.6px}.review-link:hover{background:var(--dark)}.actions{display:flex;justify-content:space-between;align-items:center;gap:8px}.again{border:0;background:none;color:var(--red);font-size:10px;font-weight:700;padding:9px 0}.resultfoot{display:flex;justify-content:space-between;border-top:1px solid #ded5c9;padding-top:17px;margin-top:auto;color:#a49a8e;font-size:8px;letter-spacing:1px;font-weight:700}
-.bottom{display:flex;gap:15px;align-items:center;margin:36px 0 30px;padding:18px 22px;border-radius:12px;background:#eee6da}.bottom b{font-size:28px;color:var(--red)}.bottom p{margin:0;color:#81786d;font-size:11px;line-height:1.6}.bottom strong{color:#453e36}
-footer{display:flex;justify-content:space-between;color:#aaa195;padding:20px 0 28px;border-top:1px solid #e8e0d6;font-size:8px;letter-spacing:1px;font-weight:700}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:12px 18px;background:#292622;color:white;border-radius:30px;font-size:11px;transition:.2s;z-index:9}.toast.show{opacity:1;transform:translate(-50%,0)}
-@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:820px){.shell{padding:0 22px}.hero{padding:60px 0 52px}.stamp{right:4%;width:112px;height:112px;top:50px;font-size:12px}.workspace{grid-template-columns:1fr}.result{min-height:420px}}
-@media(max-width:520px){.shell{padding:0 15px}header{height:68px}.toplabel{font-size:8px}.mark{width:31px;height:31px;font-size:21px}.brandname{font-size:22px}.hero{padding:48px 0 38px}.hero h1{font-size:45px;letter-spacing:-2.8px}.intro{max-width:290px;font-size:13px}.stamp{width:78px;height:78px;right:0;top:60px;font-size:9px;letter-spacing:1px}.stamp small{font-size:5px;margin-top:4px}.form,.result{border-radius:14px}.form{padding:24px 18px}.heading h2{font-size:20px}fieldset{margin-bottom:22px}.chip span{padding:0 11px;font-size:10px}.result{padding:24px 18px 20px}.empty h2{font-size:23px}.bottom{margin:25px 0;padding:15px}footer{font-size:7px;letter-spacing:.8px}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#121214" />
+  <title>STEPPE by GORMOLZAVOD — Помощник отзыва в 2ГИС</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --terracotta: #9E3824;
+      --terracotta-dark: #7C2918;
+      --terracotta-light: #B84A34;
+      --bg-dark: #121214;
+      --card-dark: #1C1C1F;
+      --border-dark: #2C2C30;
+      --text-white: #FFFFFF;
+      --text-muted: #A0A0A8;
+      --gold: #F5DF2E;
+      --star-inactive: rgba(255,255,255,.28);
+      --green-2gis: #19AA1E;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-dark); color: var(--text-white); min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; overflow-x: hidden;
+    }
+    button, textarea { font: inherit; }
+    button:focus-visible, a:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--gold); outline-offset: 3px;
+    }
+    .app-wrapper {
+      width: 100%; max-width: 460px; background: var(--bg-dark); min-height: 100vh;
+      display: flex; flex-direction: column; position: relative;
+      box-shadow: 0 0 40px rgba(0,0,0,.6);
+    }
+    .hero-header {
+      background: radial-gradient(circle at 50% 25%, var(--terracotta-light) 0%, var(--terracotta) 60%, var(--terracotta-dark) 100%);
+      padding: 24px 20px 68px; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero-header::before {
+      content: ""; position: absolute; inset: 0; opacity: .14;
+      background-image: repeating-radial-gradient(circle at 20% 80%, transparent 0, transparent 12px, rgba(0,0,0,.35) 13px, transparent 14px);
+      pointer-events: none;
+    }
+    .badge-2gis {
+      width: 48px; height: 48px; margin: 0 auto 10px; background: #fff; border-radius: 12px;
+      padding: 3px; box-shadow: 0 6px 16px rgba(0,0,0,.25); display: flex;
+      align-items: center; justify-content: center; position: relative; z-index: 2;
+    }
+    .badge-2gis svg { width: 100%; height: 100%; border-radius: 9px; }
+    .stars-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; position: relative; z-index: 2; }
+    .star-btn { background: none; border: none; cursor: pointer; padding: 2px; transition: transform .15s ease; }
+    .star-btn:active { transform: scale(1.2); }
+    .star-icon { width: 28px; height: 28px; fill: var(--star-inactive); filter: drop-shadow(0 2px 4px rgba(0,0,0,.25)); transition: fill .2s ease; }
+    .star-btn.active .star-icon { fill: var(--gold); }
+    .hero-title { font-size: 21px; font-weight: 700; line-height: 1.25; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.25); position: relative; z-index: 2; margin-bottom: 6px; }
+    .hero-sub { font-size: 12.5px; color: rgba(255,255,255,.88); font-weight: 500; position: relative; z-index: 2; }
+    .wave-divider { position: absolute; bottom: -1px; left: 0; width: 100%; height: 46px; z-index: 2; }
+    .logo-circle-wrap { margin-top: -48px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 5; }
+    .logo-circle {
+      width: 92px; height: 92px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #B44532, #8F301E);
+      border: 4px solid #fff; box-shadow: 0 8px 24px rgba(0,0,0,.45);
+      display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+    }
+    .logo-circle::before {
+      content: ""; position: absolute; inset: 0; opacity: .22;
+      background: repeating-linear-gradient(-25deg, transparent, transparent 5px, rgba(40,10,5,.35) 6px, transparent 7px);
+    }
+    .logo-text { font-size: 20px; font-weight: 600; letter-spacing: .5px; color: #fff; position: relative; z-index: 2; }
+    .brand-caption { margin-top: 8px; font-size: 12px; font-weight: 600; color: var(--text-muted); letter-spacing: .4px; text-align: center; }
+    .content { padding: 16px 18px 32px; display: flex; flex-direction: column; gap: 18px; }
+    .section-label {
+      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+      color: var(--text-muted); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .branch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .branch-btn {
+      background: var(--card-dark); border: 1.5px solid var(--border-dark); border-radius: 14px;
+      padding: 10px 12px; color: var(--text-white); text-align: left; cursor: pointer;
+      transition: all .2s ease; display: flex; flex-direction: column; gap: 3px;
+    }
+    .branch-btn.active { border-color: var(--terracotta-light); background: rgba(158,56,36,.22); box-shadow: 0 4px 14px rgba(158,56,36,.25); }
+    .branch-name { font-size: 13.5px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+    .branch-hours { font-size: 11px; color: var(--text-muted); }
+    .chips-container { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: var(--card-dark); border: 1.5px solid var(--border-dark); color: #eaeaea;
+      border-radius: 22px; padding: 9px 14px; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all .18s ease; display: inline-flex; align-items: center; gap: 7px; user-select: none;
+    }
+    .chip-icon { width: 22px; height: 22px; border-radius: 50%; background: var(--terracotta); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+    .chip.selected { background: var(--terracotta); border-color: #E06D53; color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(158,56,36,.4); }
+    .chip.selected .chip-icon { background: rgba(255,255,255,.22); }
+    .review-box-wrap { background: var(--card-dark); border: 1.5px solid var(--border-dark); border-radius: 16px; padding: 14px; position: relative; }
+    .review-textarea { width: 100%; min-height: 108px; background: transparent; border: none; color: var(--text-white); font-family: inherit; font-size: 14px; line-height: 1.5; resize: vertical; outline: none; }
+    .review-textarea::placeholder { color: var(--text-muted); }
+    .review-footer { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-dark); }
+    .hint-edit { font-size: 11px; color: var(--text-muted); }
+    .regen-btn { background: rgba(255,255,255,.07); border: 1px solid var(--border-dark); color: #fff; border-radius: 10px; padding: 6px 11px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: background .2s; }
+    .regen-btn:active { background: rgba(255,255,255,.16); }
+    .cta-button {
+      width: 100%; background: linear-gradient(135deg,#20BD26 0%,#148F18 100%); color: #fff;
+      border: none; border-radius: 16px; padding: 16px 20px; font-size: 15.5px; font-weight: 700;
+      cursor: pointer; box-shadow: 0 8px 22px rgba(25,170,30,.35); display: flex;
+      align-items: center; justify-content: center; gap: 10px; transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .cta-button:active { transform: scale(.98); }
+    .steps-hint { text-align: center; font-size: 12px; color: var(--text-muted); line-height: 1.4; margin-top: -6px; }
+    .social-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+    .social-link { text-decoration: none; background: var(--card-dark); border: 1px solid var(--border-dark); border-radius: 14px; padding: 11px 14px; color: var(--text-white); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; transition: border-color .2s; }
+    .social-link:hover { border-color: var(--terracotta-light); }
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+      background: #1E2024; border: 1.5px solid var(--green-2gis); color: #fff; padding: 12px 18px;
+      border-radius: 14px; font-size: 13.5px; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,.6);
+      z-index: 100; transition: transform .3s cubic-bezier(.18,.89,.32,1.28); text-align: center; width: 90%; max-width: 380px;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+  </style>
 </head>
-<body><div class="shell">
-<header><a class="brand" href="#"><span class="mark">s</span><span class="brandname">steppe<span>.</span></span></a><span class="toplabel">ВАШЕ МНЕНИЕ ВАЖНО</span></header>
-<main>
-<section class="hero"><div class="eyebrow">STEPPE COFFEE · REVIEW STUDIO</div><h1>Ваше впечатление.<br><em>Ваши слова.</em></h1><p class="intro">Соберите короткий и естественный отзыв о визите. Выберите только то, что действительно соответствует вашему опыту.</p><div class="stamp">GOOD<br>COFFEE<br><small>GOOD MOOD</small></div></section>
-<section class="workspace">
-<div class="panel form"><div class="heading"><div><span class="step">01 / ВАШ ВИЗИТ</span><h2>Что вам понравилось?</h2></div><span class="spark">✳</span></div>
-<fieldset><legend>Общее впечатление</legend><div class="stars" id="stars" role="group" aria-label="Оценка">
-<button class="star on" data-rating="1" aria-label="1 звезда">★</button><button class="star on" data-rating="2" aria-label="2 звезды">★</button><button class="star on" data-rating="3" aria-label="3 звезды">★</button><button class="star on" data-rating="4" aria-label="4 звезды">★</button><button class="star on" data-rating="5" aria-label="5 звёзд">★</button></div><p class="hint" id="ratingHint">Отлично — если это действительно ваша оценка</p></fieldset>
-<fieldset><legend>Что вы заказывали?</legend><div class="chips" id="orders">
-<label class="chip"><input type="checkbox" value="кофе"><span>☕ Кофе</span></label><label class="chip"><input type="checkbox" value="чай"><span>🍵 Чай</span></label><label class="chip"><input type="checkbox" value="десерт"><span>🍰 Десерт</span></label><label class="chip"><input type="checkbox" value="завтрак или еду"><span>🥐 Еда</span></label><label class="chip"><input type="checkbox" value="другой напиток"><span>🥤 Другой напиток</span></label></div></fieldset>
-<fieldset><legend>Какие впечатления у вас остались?</legend><div class="chips" id="impressions">
-<label class="chip"><input type="checkbox" value="вкус и качество заказа"><span>Вкус и качество</span></label><label class="chip"><input type="checkbox" value="работа персонала"><span>Обслуживание</span></label><label class="chip"><input type="checkbox" value="уютная атмосфера"><span>Атмосфера</span></label><label class="chip"><input type="checkbox" value="чистота заведения"><span>Чистота</span></label><label class="chip"><input type="checkbox" value="удобное расположение"><span>Расположение</span></label><label class="chip"><input type="checkbox" value="скорость обслуживания"><span>Скорость</span></label></div></fieldset>
-<fieldset><legend>Стиль отзыва</legend><div class="tones">
-<label class="tone"><input type="radio" name="tone" value="friendly" checked><span><b>😊</b>По-дружески</span></label><label class="tone"><input type="radio" name="tone" value="short"><span><b>✍️</b>Коротко</span></label><label class="tone"><input type="radio" name="tone" value="detailed"><span><b>📝</b>Подробно</span></label></div></fieldset>
-<div class="fieldlabel">Добавьте деталь (необязательно)</div><textarea id="note" maxlength="180" rows="3" placeholder="Например: понравился раф с карамелью или быстро приготовили заказ..."></textarea><div class="meta"><span>Только то, что было на самом деле</span><span id="count">0/180</span></div>
-<button class="generate" id="generate" style="margin-top:20px"><span>СОЗДАТЬ ВАРИАНТЫ</span><span class="arrow">↗</span></button><p class="privacy">Генератор не публикует отзывы. Проверьте текст, скопируйте его и самостоятельно разместите в 2GIS, только если он точно отражает ваш визит.</p>
-</div>
-<aside class="panel result"><div class="resulttop"><span class="step">02 / ВАШ ОТЗЫВ</span><span class="live">ЛОКАЛЬНО</span></div><div class="empty" id="empty"><div class="illustration">✳</div><h2>Здесь появится<br>ваш отзыв</h2><p>Отметьте впечатления слева и нажмите «Создать варианты».</p></div><div class="cards" id="cards" aria-live="polite"></div><div class="resultfoot"><span>STEPPE COFFEE</span><span>THANK YOU FOR VISITING ♥</span></div></aside>
-</section>
-<section class="bottom"><b>✳</b><p><strong>Честный отзыв помогает.</strong><br>Расскажите о реальном опыте — это полезно и другим гостям, и нашей команде.</p></section>
-</main><footer><span>© <span id="year"></span> STEPPE COFFEE</span><span>MADE WITH CARE · KOKSHETAU</span></footer></div><div class="toast" id="toast" role="status"></div>
-<script>
-(()=>{
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-let rating=5,timer,last=[];
-const labels={1:"Не понравилось — опишите впечатление честно",2:"Есть замечания — укажите только реальные моменты",3:"Нейтрально — можно рассказать, что было хорошо и что нет",4:"Хорошо — если это действительно ваша оценка",5:"Отлично — если это действительно ваша оценка"};
-const openers={friendly:["Заглянул(а) в STEPPE COFFEE и хочу поделиться впечатлением.","Был(а) здесь недавно — делюсь впечатлением от визита.","Посетил(а) STEPPE COFFEE. В целом впечатление такое:"],short:["Мой визит в STEPPE COFFEE:","Коротко о посещении:","Впечатление от STEPPE COFFEE:"],detailed:["Хочу поделиться впечатлением после посещения STEPPE COFFEE.","Недавно побывал(а) в STEPPE COFFEE и обратил(а) внимание на несколько деталей.","Расскажу о своём опыте посещения STEPPE COFFEE."]};
-const endings={friendly:["Спасибо команде за визит!","Спасибо за гостеприимство.","Буду ориентироваться на это впечатление при следующем визите."],short:["Спасибо!","Впечатление описал(а) честно.","Спасибо команде."],detailed:["Спасибо команде. Надеюсь, мой отзыв будет полезен другим гостям.","Это мой личный опыт посещения. Спасибо!","Такое впечатление осталось у меня после визита."]};
-const ratingPhrases={1:["Впечатление осталось скорее отрицательное.","К сожалению, визит меня не порадовал."],2:["Впечатление неоднозначное, есть моменты, которые хотелось бы улучшить.","Не всё соответствовало моим ожиданиям."],3:["В целом впечатление нейтральное.","Визит оставил смешанные впечатления."],4:["В целом мне понравилось посещение.","Остался(лась) доволен(на) визитом."],5:["Мне очень понравилось посещение.","Остался(лась) с отличным впечатлением."]};
-const pick=a=>a[Math.floor(Math.random()*a.length)];
-function checked(id){return $$('#'+id+' input:checked').map(x=>x.value)}
-function updateRating(n){rating=n;$$('.star').forEach(b=>{let v=+b.dataset.rating;b.classList.toggle('on',v<=n);b.setAttribute('aria-pressed',String(v===n))});$('#ratingHint').textContent=labels[n]}
-function toast(msg){$('#toast').textContent=msg;$('#toast').classList.add('show');clearTimeout(timer);timer=setTimeout(()=>$('#toast').classList.remove('show'),2200)}
-function build(i,d){let parts=[pick(openers[d.tone]),pick(ratingPhrases[rating])];if(d.orders.length)parts.push('Из заказа у меня были '+d.orders.join(', ')+'.');if(d.impressions.length)parts.push((d.impressions.length===1?'Отдельно отмечу ':'Из деталей могу отметить ')+d.impressions.join(', ')+'.');if(d.note)parts.push(d.note.replace(/[.!?]+$/,'')+'.');parts.push(pick(endings[d.tone]));if(d.tone==='short')parts=[parts[0],parts[1],...(d.impressions.length?[parts[2]]:[]),...(d.note?[d.note]:[]),pick(endings.short)];return parts.filter(Boolean).join(' ')}
-async function copy(text,button){try{if(navigator.clipboard&&isSecureContext)await navigator.clipboard.writeText(text);else{let t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.append(t);t.select();if(!document.execCommand('copy'))throw Error();t.remove()}let old=button.textContent;button.textContent='СКОПИРОВАНО ✓';toast('Текст скопирован');setTimeout(()=>button.textContent=old,1800)}catch(e){toast('Не удалось скопировать. Выделите текст вручную.')}}
-function render(){let box=$('#cards');box.replaceChildren();$('#empty').hidden=true;last.forEach((text,i)=>{let card=document.createElement('article');card.className='card';let head=document.createElement('div');head.className='cardhead';let num=document.createElement('span');num.className='num';num.textContent='ВАРИАНТ 0'+(i+1);let stars=document.createElement('span');stars.className='cardstars';stars.textContent='★'.repeat(rating)+'☆'.repeat(5-rating);let p=document.createElement('p');p.className='reviewtext';p.textContent=text;head.append(num,stars);let reviewLink=document.createElement('a');reviewLink.className='review-link';reviewLink.href='https://2gis.kz/kokshetau/firm/70000001104584028/tab/reviews';reviewLink.target='_blank';reviewLink.rel='noopener noreferrer';reviewLink.textContent='СКОПИРОВАТЬ И ПЕРЕЙТИ В 2GIS ↗';reviewLink.addEventListener('click',async event=>{event.preventDefault();const opened=window.open(reviewLink.href,'_blank','noopener,noreferrer');await copy(text,reviewLink);if(!opened)window.location.href=reviewLink.href});card.append(head,p,reviewLink);box.append(card)});let actions=document.createElement('div');actions.className='actions';let hint=document.createElement('span');hint.className='hint';hint.textContent='Проверьте факты перед публикацией';let again=document.createElement('button');again.className='again';again.textContent='↻ Другие формулировки';again.onclick=generate;actions.append(hint,again);box.append(actions)}
-function generate(){let orders=checked('orders'),impressions=checked('impressions'),note=$('#note').value.trim(),tone=$('input[name="tone"]:checked').value;if(!orders.length&&!impressions.length&&!note){toast('Добавьте хотя бы одну реальную деталь о визите');$('#orders').scrollIntoView({behavior:'smooth',block:'center'});return}let d={orders,impressions,note,tone};last=[0,1,2].map(i=>build(i,d));render()}
-$$('.star').forEach(b=>b.addEventListener('click',()=>updateRating(+b.dataset.rating)));
-$('#note').addEventListener('input',()=>$('#count').textContent=$('#note').value.length+'/180');
-$('#generate').addEventListener('click',generate);$('#year').textContent=new Date().getFullYear();updateRating(5);
-})();
-</script></body></html>
+<body>
+  <div class="app-wrapper">
+    <header class="hero-header">
+      <div class="badge-2gis" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none">
+          <rect width="64" height="64" rx="14" fill="#19AA1E"/>
+          <path d="M0 0H64V20C48 14 16 14 0 20V0Z" fill="#F5DF2E"/>
+          <circle cx="32" cy="27" r="12" fill="#0B55B8"/>
+          <path d="M32 39L28 56H36L32 39Z" fill="#FFFFFF"/>
+        </svg>
+      </div>
+      <div class="stars-row" id="starsRow" aria-label="Выберите оценку от 1 до 5">
+        <button type="button" class="star-btn" data-rate="1" aria-label="1 звезда" aria-pressed="false"><svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg></button>
+        <button type="button" class="star-btn" data-rate="2" aria-label="2 звезды" aria-pressed="false"><svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg></button>
+        <button type="button" class="star-btn" data-rate="3" aria-label="3 звезды" aria-pressed="false"><svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg></button>
+        <button type="button" class="star-btn" data-rate="4" aria-label="4 звезды" aria-pressed="false"><svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg></button>
+        <button type="button" class="star-btn" data-rate="5" aria-label="5 звёзд" aria-pressed="false"><svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg></button>
+      </div>
+      <h1 class="hero-title">Будем благодарны<br>за отзыв в 2GIS!</h1>
+      <p class="hero-sub">Отметьте свои впечатления — мы поможем сформулировать текст</p>
+      <svg class="wave-divider" viewBox="0 0 400 46" preserveAspectRatio="none"><path d="M0,18 Q100,44 200,24 T400,20 L400,46 L0,46 Z" fill="#121214"/></svg>
+    </header>
+    <div class="logo-circle-wrap">
+      <div class="logo-circle"><span class="logo-text">steppe</span></div>
+      <div class="brand-caption">STEPPE by GORMOLZAVOD • Кокшетау</div>
+    </div>
+    <main class="content">
+      <section>
+        <div class="section-label"><span>1. Выберите филиал посещения</span></div>
+        <div class="branch-grid">
+          <button type="button" class="branch-btn active" data-branch="Ауезова 189Е" aria-pressed="true">
+            <span class="branch-name">📍 Ауезова 189Е</span><span class="branch-hours">07:50–22:00</span>
+          </button>
+          <button type="button" class="branch-btn" data-branch="Набережная" aria-pressed="false">
+            <span class="branch-name">🌊 Набережная</span><span class="branch-hours">08:30–23:30</span>
+          </button>
+        </div>
+      </section>
+      <section>
+        <div class="section-label"><span>2. Что вы попробовали и оценили?</span></div>
+        <div class="chips-container" id="chipsContainer">
+          <button type="button" class="chip" data-tag="coffee" aria-pressed="false"><span class="chip-icon">☕</span> Кофе</button>
+          <button type="button" class="chip" data-tag="icecream" aria-pressed="false"><span class="chip-icon">🍦</span> Мороженое Гормолзавод</button>
+          <button type="button" class="chip" data-tag="bakery" aria-pressed="false"><span class="chip-icon">🥐</span> Выпечка из цеха</button>
+          <button type="button" class="chip" data-tag="service" aria-pressed="false"><span class="chip-icon">✨</span> Обслуживание бариста</button>
+          <button type="button" class="chip" data-tag="vibe" aria-pressed="false"><span class="chip-icon">🤎</span> Интерьер и уют</button>
+          <button type="button" class="chip" data-tag="fast" aria-pressed="false"><span class="chip-icon">⚡</span> Скорость подачи</button>
+        </div>
+      </section>
+      <section>
+        <div class="section-label"><span>3. Черновик вашего отзыва</span></div>
+        <div class="review-box-wrap">
+          <textarea id="reviewText" class="review-textarea" placeholder="Выберите оценку и впечатления выше или напишите отзыв здесь..." aria-label="Текст вашего отзыва"></textarea>
+          <div class="review-footer">
+            <span class="hint-edit">Вы можете отредактировать текст</span>
+            <button type="button" class="regen-btn" id="regenBtn">🔄 Другая формулировка</button>
+          </div>
+        </div>
+      </section>
+      <button type="button" class="cta-button" id="copyAndGoBtn"><span>Скопировать и открыть 2GIS</span><span>➔</span></button>
+      <p class="steps-hint">Текст скопируется в буфер обмена, после чего откроется страница кофейни в 2ГИС.</p>
+      <div class="social-row">
+        <a class="social-link" id="waLink" href="https://wa.me/77076404640" target="_blank" rel="noopener noreferrer"><span style="color:#65D039;">●</span> WhatsApp</a>
+        <a class="social-link" id="igLink" href="https://www.instagram.com/steppe.coffee/" target="_blank" rel="noopener noreferrer"><span style="color:#E1306C;">●</span> @steppe.coffee</a>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toastMsg" role="status" aria-live="polite">Текст скопирован! Открываем 2ГИС...</div>
+  <script>
+    const TWO_GIS_URL = "https://2gis.kz/kokshetau/geo/70000001104584028/69.375800,53.292805?inv_by=7b822e88a92d4ff187661a6718f0d23e&inv_ts=1794112925";
+    let currentBranch = "Ауезова 189Е";
+    let currentRating = 0;
+    let variantIndex = 0;
+
+    const openers = [
+      branch => `Посетил(а) кофейню STEPPE (${branch}).`,
+      branch => `Заглянул(а) в Steppe by Gormolzavod — филиал ${branch}.`,
+      branch => `Хочу поделиться впечатлениями о визите в STEPPE (${branch}).`
+    ];
+    const tagPhrases = {
+      coffee: ["Попробовал(а) кофе — мне понравился его вкус.", "Отмечу кофе: он оставил приятное впечатление.", "Из заказа особенно запомнился кофе."],
+      icecream: ["Попробовал(а) мороженое «Гормолзавод» — оно мне понравилось.", "Отдельно отмечу мороженое «Гормолзавод».", "Взял(а) мороженое «Гормолзавод», впечатления хорошие."],
+      bakery: ["Попробовал(а) выпечку из собственного цеха.", "Также взял(а) выпечку — она мне понравилась.", "Из еды отмечу выпечку собственного производства."],
+      service: ["Обслуживание оставило приятное впечатление.", "Понравилось общение с бариста.", "Отмечу работу персонала."],
+      vibe: ["Понравилась атмосфера и интерьер заведения.", "В зале было комфортно провести время.", "Отмечу уютную обстановку."],
+      fast: ["Заказ выдали достаточно быстро.", "Понравилась скорость приготовления заказа.", "Долго ждать заказ не пришлось."]
+    };
+
+    const branchButtons = document.querySelectorAll(".branch-btn");
+    const chips = document.querySelectorAll(".chip");
+    const starBtns = document.querySelectorAll(".star-btn");
+    const reviewTextarea = document.getElementById("reviewText");
+    const regenBtn = document.getElementById("regenBtn");
+    const copyAndGoBtn = document.getElementById("copyAndGoBtn");
+    const toastMsg = document.getElementById("toastMsg");
+
+    function buildReview() {
+      const selectedTags = Array.from(chips)
+        .filter(chip => chip.classList.contains("selected"))
+        .map(chip => chip.dataset.tag);
+      if (currentRating === 0 && selectedTags.length === 0) {
+        reviewTextarea.value = "";
+        return;
+      }
+      const parts = [openers[variantIndex % openers.length](currentBranch)];
+      if (currentRating > 0) parts.push(`Моя оценка — ${currentRating} из 5.`);
+      const phrases = selectedTags.map((tag, index) => {
+        const variants = tagPhrases[tag];
+        return variants[(variantIndex + index) % variants.length];
+      });
+      parts.push(...phrases);
+      reviewTextarea.value = parts.join(" ");
+    }
+
+    starBtns.forEach(button => {
+      button.addEventListener("click", () => {
+        currentRating = Number(button.dataset.rate);
+        starBtns.forEach(star => {
+          const active = Number(star.dataset.rate) <= currentRating;
+          star.classList.toggle("active", active);
+          star.setAttribute("aria-pressed", String(Number(star.dataset.rate) === currentRating));
+        });
+        buildReview();
+      });
+    });
+
+    branchButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        branchButtons.forEach(item => {
+          item.classList.remove("active");
+          item.setAttribute("aria-pressed", "false");
+        });
+        button.classList.add("active");
+        button.setAttribute("aria-pressed", "true");
+        currentBranch = button.dataset.branch;
+        buildReview();
+      });
+    });
+
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        chip.classList.toggle("selected");
+        chip.setAttribute("aria-pressed", String(chip.classList.contains("selected")));
+        buildReview();
+      });
+    });
+
+    regenBtn.addEventListener("click", () => {
+      variantIndex++;
+      buildReview();
+    });
+
+    function fallbackCopy(value) {
+      const temporary = document.createElement("textarea");
+      temporary.value = value;
+      temporary.setAttribute("readonly", "");
+      temporary.style.position = "fixed";
+      temporary.style.opacity = "0";
+      temporary.style.pointerEvents = "none";
+      document.body.appendChild(temporary);
+      temporary.select();
+      temporary.setSelectionRange(0, temporary.value.length);
+      const copied = document.execCommand("copy");
+      document.body.removeChild(temporary);
+      return copied;
+    }
+
+    copyAndGoBtn.addEventListener("click", async () => {
+      const textToCopy = reviewTextarea.value.trim();
+      if (!textToCopy) {
+        reviewTextarea.focus();
+        toastMsg.textContent = "Сначала напишите отзыв или выберите оценку и впечатления.";
+        toastMsg.classList.add("show");
+        window.setTimeout(() => toastMsg.classList.remove("show"), 2600);
+        return;
+      }
+
+      let copied = false;
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(textToCopy);
+          copied = true;
+        } catch (error) {
+          copied = fallbackCopy(textToCopy);
+        }
+      } else {
+        copied = fallbackCopy(textToCopy);
+      }
+
+      toastMsg.textContent = copied
+        ? "Текст скопирован! Открываем 2ГИС..."
+        : "Не удалось скопировать автоматически. Открываем 2ГИС...";
+      toastMsg.classList.add("show");
+      window.setTimeout(() => { window.location.href = TWO_GIS_URL; }, 800);
+      window.setTimeout(() => toastMsg.classList.remove("show"), 3000);
+    });
+  </script>
+</body>
+</html>
