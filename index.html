@@ -63,14 +63,14 @@
     .star-btn:active { transform: scale(1.2); }
     .star-icon { width: 34px; height: 34px; fill: rgba(255,255,255,.42); filter: drop-shadow(0 2px 5px rgba(0,0,0,.3)); transition: fill .2s ease, filter .2s ease; }
     .star-btn.active .star-icon { fill: var(--gold); filter: drop-shadow(0 0 7px rgba(245,223,46,.7)); }
-    .stars-row .star-btn { animation: starBlink 1.8s ease-in-out infinite; }
-    .stars-row .star-btn:nth-child(2) { animation-delay: .18s; }
-    .stars-row .star-btn:nth-child(3) { animation-delay: .36s; }
-    .stars-row .star-btn:nth-child(4) { animation-delay: .54s; }
-    .stars-row .star-btn:nth-child(5) { animation-delay: .72s; }
-    @keyframes starBlink { 0%,100% { opacity: .72; transform: scale(.96); } 50% { opacity: 1; transform: scale(1.08); } }
+    .stars-row .star-btn { animation: starBlink 1.35s ease-in-out infinite; will-change: transform, opacity, filter; }
+    .stars-row .star-btn:nth-child(2) { animation-delay: .16s; }
+    .stars-row .star-btn:nth-child(3) { animation-delay: .32s; }
+    .stars-row .star-btn:nth-child(4) { animation-delay: .48s; }
+    .stars-row .star-btn:nth-child(5) { animation-delay: .64s; }
+    .stars-row .star-btn .star-icon { transition: fill .2s ease, filter .2s ease; }
+    @keyframes starBlink { 0%,100% { opacity: .38; transform: scale(.88); filter: brightness(.72); } 50% { opacity: 1; transform: scale(1.2); filter: brightness(1.45) drop-shadow(0 0 9px rgba(245,223,46,.95)); } }
     .rating-feedback { color: rgba(255,255,255,.9); font-size: 11px; font-weight: 600; min-height: 16px; }
-    @media (prefers-reduced-motion: reduce) { .stars-row .star-btn { animation: none; } }
     .hero-title { font-size: 21px; font-weight: 700; line-height: 1.25; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.25); position: relative; z-index: 2; margin-bottom: 6px; }
     .hero-sub { font-size: 12.5px; color: rgba(255,255,255,.88); font-weight: 500; position: relative; z-index: 2; }
     .wave-divider { position: absolute; bottom: -1px; left: 0; width: 100%; height: 46px; z-index: 2; }
