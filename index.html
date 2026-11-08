@@ -193,7 +193,8 @@
   </div>
   <div class="toast" id="toastMsg" role="status" aria-live="polite">Текст скопирован! Открываем 2ГИС...</div>
   <script>
-    const TWO_GIS_URL = "https://2gis.kz/kokshetau/geo/70000001104584028/69.375800,53.292805?inv_by=7b822e88a92d4ff187661a6718f0d23e&inv_ts=1794112925";
+    const TWO_GIS_APP_URL = "dgis://2gis.ru/firm/70000001104584028";
+    const TWO_GIS_WEB_URL = "https://2gis.kz/kokshetau/geo/70000001104584028/69.375800,53.292805?inv_by=7b822e88a92d4ff187661a6718f0d23e&inv_ts=1794112925";
     let currentBranch = "Ауезова 189Е";
     let currentRating = 0;
     let variantIndex = 0;
@@ -314,11 +315,35 @@
       }
 
       toastMsg.textContent = copied
-        ? "Текст скопирован! Открываем 2ГИС..."
-        : "Не удалось скопировать автоматически. Открываем 2ГИС...";
+        ? "Отзыв скопирован. Пытаемся открыть приложение 2ГИС..."
+        : "Не удалось скопировать текст. Пытаемся открыть 2ГИС...";
       toastMsg.classList.add("show");
-      window.setTimeout(() => { window.location.href = TWO_GIS_URL; }, 800);
-      window.setTimeout(() => toastMsg.classList.remove("show"), 3000);
+
+      let fallbackTimer;
+      const cancelFallback = () => {
+        if (fallbackTimer) {
+          window.clearTimeout(fallbackTimer);
+          fallbackTimer = null;
+        }
+      };
+      const onAppOpened = () => {
+        if (document.visibilityState === "hidden") cancelFallback();
+      };
+      document.addEventListener("visibilitychange", onAppOpened);
+      window.addEventListener("pagehide", cancelFallback, { once: true });
+
+      // Сначала пробуем открыть карточку в установленном приложении 2ГИС.
+      window.location.href = TWO_GIS_APP_URL;
+
+      // Если приложение не перехватило ссылку, через паузу открываем веб-карточку.
+      fallbackTimer = window.setTimeout(() => {
+        if (document.visibilityState === "visible") {
+          document.removeEventListener("visibilitychange", onAppOpened);
+          window.location.href = TWO_GIS_WEB_URL;
+        }
+      }, 1800);
+
+      window.setTimeout(() => toastMsg.classList.remove("show"), 3200);
     });
   </script>
 </body>
